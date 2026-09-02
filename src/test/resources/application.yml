@@ -1,4 +1,4 @@
-DATABASE_URL: jdbc:h2:mem:darchph;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+DATABASE_URL: jdbc:h2:mem:darchph;DB_CLOSE_DELAY=-1;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
 DB_USER: sa
 DB_PASSWORD: ""
 JWT_SECRET: this-is-a-test-secret-that-is-definitely-at-least-thirty-two-chars-long
@@ -16,7 +16,7 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create-drop
     open-in-view: false
   flyway:
     enabled: false
@@ -28,6 +28,8 @@ app:
   supabase:
     url: ${SUPABASE_URL}
     service-key: ${SUPABASE_SERVICE_KEY}
+  cors:
+    allowed-origins: http://localhost:5173,https://darchph.vercel.app
   admin:
     username: ${ADMIN_USERNAME}
     password: ${ADMIN_PASSWORD}

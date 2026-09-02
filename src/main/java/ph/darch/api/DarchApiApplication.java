@@ -2,12 +2,14 @@ package ph.darch.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import ph.darch.api.config.DotenvLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
+@ConfigurationPropertiesScan
 public class DarchApiApplication {
 
     public static void main(String[] args) {
