@@ -1,0 +1,33 @@
+DATABASE_URL: jdbc:h2:mem:darchph;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+DB_USER: sa
+DB_PASSWORD: ""
+JWT_SECRET: this-is-a-test-secret-that-is-definitely-at-least-thirty-two-chars-long
+JWT_EXPIRATION: 14400
+SUPABASE_URL: https://test.supabase.co
+SUPABASE_SERVICE_KEY: test-service-key
+ADMIN_USERNAME: admin
+ADMIN_PASSWORD: this-is-a-test-admin-password-123456789
+
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: false
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration-seconds: ${JWT_EXPIRATION}
+  supabase:
+    url: ${SUPABASE_URL}
+    service-key: ${SUPABASE_SERVICE_KEY}
+  admin:
+    username: ${ADMIN_USERNAME}
+    password: ${ADMIN_PASSWORD}
