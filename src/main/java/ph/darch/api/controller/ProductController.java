@@ -1,5 +1,7 @@
 package ph.darch.api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import ph.darch.api.service.ProductService;
 
 @RestController
 @RequestMapping("/api/products")
+@Tag(name = "Products", description = "Public storefront, no token required")
 public class ProductController {
 
     private final ProductService productService;
@@ -19,6 +22,7 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @Operation(summary = "List active products (paginated/searchable)")
     @GetMapping
     public PagedResponse<ProductResponse> list(
             @RequestParam(defaultValue = "0") int page,
@@ -29,6 +33,7 @@ public class ProductController {
         return productService.list(page, size, sort, search, featured);
     }
 
+    @Operation(summary = "Get an active product by slug")
     @GetMapping("/{slug}")
     public ProductResponse getBySlug(@PathVariable String slug) {
         return productService.getBySlug(slug);

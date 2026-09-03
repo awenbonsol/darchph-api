@@ -15,4 +15,6 @@ public interface ProductMediaRepository extends JpaRepository<ProductMedia, Long
     List<ProductMedia> findByProductIdInOrderByProductIdAscPositionAsc(Collection<Long> productIds);
 
     Optional<ProductMedia> findByProductIdAndMediaType(Long productId, MediaType mediaType);
+
+    boolean existsByMediaAssetId(Long mediaAssetId);
 }

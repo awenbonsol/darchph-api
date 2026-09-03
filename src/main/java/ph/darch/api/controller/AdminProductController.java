@@ -1,5 +1,8 @@
 package ph.darch.api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +25,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin/products")
+@Tag(name = "Admin Products", description = "Admin CRUD for products (JWT required)")
+@SecurityRequirement(name = "bearerAuth")
 public class AdminProductController {
 
     private final AdminProductService adminProductService;
@@ -30,6 +35,7 @@ public class AdminProductController {
         this.adminProductService = adminProductService;
     }
 
+    @Operation(summary = "List all products (incl. inactive)")
     @GetMapping
     public PagedResponse<ProductResponse> list(
             @RequestParam(defaultValue = "0") int page,
@@ -41,27 +47,32 @@ public class AdminProductController {
         return adminProductService.list(page, size, sort, search, isActive, featured);
     }
 
+    @Operation(summary = "Get a single product by id")
     @GetMapping("/{id}")
     public ProductResponse get(@PathVariable Long id) {
         return adminProductService.get(id);
     }
 
+    @Operation(summary = "Create a product")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductResponse create(@Valid @RequestBody ProductRequest request) {
         return adminProductService.create(request);
     }
 
+    @Operation(summary = "Fully replace a product (media replaced in order)")
     @PutMapping("/{id}")
     public ProductResponse update(@PathVariable Long id, @Valid @RequestBody ProductRequest request) {
         return adminProductService.update(id, request);
     }
 
+    @Operation(summary = "Partially update a product (e.g. isActive/featured/price)")
     @PatchMapping("/{id}")
     public ProductResponse patch(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
         return adminProductService.patch(id, fields);
     }
 
+    @Operation(summary = "Delete a product and its media")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {

@@ -6,12 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import ph.darch.api.entity.MediaAsset;
 import ph.darch.api.repository.MediaAssetRepository;
+import ph.darch.api.service.StorageService;
 
 import java.util.List;
 
@@ -45,6 +47,9 @@ class AdminProductApiTest {
 
     @Autowired
     private MediaAssetRepository mediaAssetRepository;
+
+    @MockBean
+    private StorageService storageService;
 
     private String auth;
     private String imgUrl;
